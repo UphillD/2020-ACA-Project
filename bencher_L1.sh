@@ -90,7 +90,7 @@ for bench in "${BenchArray[@]}"; do
         L1bsize=$(echo $cfg | cut -d'_' -f3)
 
         # Format the output file
-        OUT_FILE=$(printf "%s_l1_%04d_%02d_%03d.out" ${benchName} ${L1size} ${L1assoc} ${L1bsize})
+        OUT_FILE=$(printf "%s_L1_%04d_%02d_%03d.out" ${benchName} ${L1size} ${L1assoc} ${L1bsize})
         OUT_FILE="${OUT_PATH}/${OUT_FILE}"
 
         # Format the command string
@@ -111,6 +111,6 @@ for bench in "${BenchArray[@]}"; do
         echo
 
         # Execute & time it
-        time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_l1.log
+        time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_L1.log
     done
 done

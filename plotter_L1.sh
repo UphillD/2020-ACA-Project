@@ -11,7 +11,7 @@
 # ├ CSLab code dir  ${HLP_PATH}
 # ├ Parsec dir      ${PAR_PATH}
 # └ PIN dir         ${PIN_PATH}
-# It also assumes that you used the run_l1.sh script for the benchmarks
+# It also assumes that you used the bencher_L1.sh script for the benchmarks
 
 # ------------------------------------------------
 # You should only have to change things below here
@@ -47,6 +47,6 @@ declare -a BenchArray=(
 
 # Loop through the available benchmarks
 for bench in "${BenchArray[@]}"; do
-    python plot_l1.py ${OUT_PATH}/${bench}*
-    mv L1.png l1_${bench}.png
+    python plot_L1.py ${OUT_PATH}/${bench}_L1*
+    mv L1.png L1_${bench}.png
 done

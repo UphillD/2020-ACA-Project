@@ -2,7 +2,7 @@
 # 1st Assignment
 
 # Plotting Code (L1)
-# You shouldn't run this directly, run plotter_l1.sh instead.
+# You shouldn't run this directly, run plotter_L1.sh instead.
 # Dependencies: python, python-matplotlib
 
 import sys
