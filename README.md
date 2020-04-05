@@ -8,14 +8,16 @@ You need to follow all the installation instructions as mentioned in the assignm
 
 By the end you should have the following directory tree:
 
-    Main Project directory          ${ACA_PATH}
-    ├ CSLab Code directory          ${HLP_PATH}
-    ├ Parsec directory              ${PAR_PATH}
-    └ PIN directory                 ${PIN_PATH}
+    Main Project directory            ${ACA_PATH}
+    ├ CSLab "Helper" Code directory   ${HLP_PATH}
+    ├ Parsec directory                ${PAR_PATH}
+    └ PIN directory                   ${PIN_PATH}
 
 The names in the curly brackets are the names of the paths you have to change in the scripts.
 
-You will also need to make the following changes in the pintool code, according to the advcomparch mailing list:
+## Necessary changes
+
+You will need to make the following changes in the pintool code, according to the advcomparch mailing list:
 
 1. In the `<CSLab Code directory>/pintool/cache.h`, make the following changes:
 
@@ -26,13 +28,17 @@ You will also need to make the following changes in the pintool code, according 
 
         163:  UINT32 HitLatency = 0, UINT32 MissLatency = 100);
 
+You then have to remake the simulator tool:
+
+        make clean; make
+
 ## Installation
 
 1. Clone the repository, preferably to the Main Project directory mentioned above:
 
         $ git clone https://github.com/UphillD/advcomparch-2020-helpers.git
 
-2. Edit the \*.sh files you wish to run to your preference. If you have the directory structure mentioned above, you should only have to change the first lines of the bencher\* and plotter\* files.
+2. Edit the \*.sh files with the appropriate paths.
 
 3. Make the \*.sh files executable:
 
@@ -40,14 +46,14 @@ You will also need to make the following changes in the pintool code, according 
 
 ## Usage
 
-Simply execute the script you wish to use.
+Simply execute the script you wish to use, e.g.:
 
-The bencher scripts will run every benchmark with every configuration for the appropriate memory level (L1, L2 etc).
+        $ ./bencher_L1.sh
 
-*Note 1: The bencher scripts produce the outputs in the path parsec_workspace/outputs/<memory level> and the output logs in the path parsec_workspace/logs.*
+The bencher scripts will run every benchmark with every configuration of the appropriate memory level (L1, L2, ..).
 
-*Note 2: There is a simple check in place to avoid rerunning the same benchmarks; if the output for the current benchmark already exists, and it's not the last one in the folder, it skips it.*
+The plotter scripts will produce the graphs for every benchmark with every configuration of the appropriate memory level (L1, L2, ..).
 
-The plotter scripts will take the outputs of the bencher scripts and produce the appropriate plots.
+*Note 1: The bencher scripts produce the outputs in the path `<parsec_workspace>/outputs/<memory level>/` and the output logs in the path `<parsec_workspace>/logs/`*
 
-The python codes are not to be used directly, they are called by the plotter scripts.
+*Note 2: There is a simple check in place to avoid rerunning the same benchmarks; if the output for the current benchmark already exists, and it's not the last one in the folder, it is skipped.*
