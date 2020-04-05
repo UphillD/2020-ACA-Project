@@ -115,7 +115,7 @@ for bench in "${BenchArray[@]}"; do
         echo
 
         # Check if benchmark has already been run
-        if ls -d ${OUT_PATH} | tail -1 | grep -q "${OUT_FILE}"; then
+        if ls -d "${OUT_PATH}"/* | tail -1 | grep -q "${OUT_FILE}"; then
             # if it's the last benchmark run, rerun it
             echo "Found the last incomplete benchmark, rerunning"
             time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_TLB.log
