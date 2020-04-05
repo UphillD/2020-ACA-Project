@@ -5,11 +5,15 @@ This is a collection of helpers for the 1st assignment for the course "Advanced 
 # Prerequisites
 
 You need to follow all the installation instructions as mentioned in the assignment.
+
 By the end you should have the following directory tree:
 
 Main Project dir  ${ACA_PATH}
+
 ├ CSLab code dir  ${HLP_PATH}
+
 ├ Parsec dir      ${PAR_PATH}
+
 └ PIN dir         ${PIN_PATH}
 
 # Installation
