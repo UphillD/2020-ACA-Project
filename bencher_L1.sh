@@ -37,13 +37,13 @@ SIM_EXE=${HLP_PATH}/pintool/obj-intel64/simulator.so
 # Workspace directories
 WRK_PATH=${PAR_PATH}/parsec_workspace
 INP_PATH=${WRK_PATH}/inputs
-OUT_PATH=${WRK_PATH}/outputs
+OUT_PATH=${WRK_PATH}/outputs/L1
 LOG_PATH=${WRK_PATH}/logs
 EXE_PATH=${WRK_PATH}/executables
 
 # Create the necessary paths
-mkdir ${OUT_PATH} &> /dev/null
-mkdir ${LOG_PATH} &> /dev/null
+mkdir -p ${OUT_PATH} &> /dev/null
+mkdir -p ${LOG_PATH} &> /dev/null
 
 # L2, Prefetching & TLB configuration
 L2size=1024
@@ -94,7 +94,7 @@ for bench in "${BenchArray[@]}"; do
         OUT_FILE="${OUT_PATH}/${OUT_FILE}"
 
         # Format the command string
-        CMD="${PIN_EXE} -t ${SIM_EXE} -o ${OUT_FILE}  \
+        CMD="${PIN_EXE} -t ${SIM_EXE} -o ${OUT_FILE}                        \
             -L1c ${L1size} -L1a ${L1assoc} -L1b ${L1bsize}                  \
             -L2c ${L2size} -L2a ${L2assoc} -L2b ${L2bsize} -L2prf ${L2prf}  \
             -TLBe ${TLBe} -TLBa ${TLBa} -TLBp ${TLBp}                       \
@@ -110,7 +110,17 @@ for bench in "${BenchArray[@]}"; do
         echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
         echo
 
-        # Execute & time it
-        time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_L1.log
+        # Check if benchmark has already been run
+        if ls | tail -1 | grep -q "${OUT_FILE}"; then
+            # if it's the last benchmark run, rerun it
+            echo "Found the last incomplete benchmark, rerunning"
+            time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_L1.log
+        elif test -f "${OUT_FILE}"; then
+            echo "Benchmark already run"
+            echo "skipping.."
+        else
+            # Execute & time it
+            time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_L1.log
+        fi
     done
 done

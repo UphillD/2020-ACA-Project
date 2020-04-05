@@ -29,7 +29,7 @@ PAR_PATH=${ACA_PATH}/parsec-3.0       # Parsec folder
 
 # Workspace paths
 WRK_PATH=${PAR_PATH}/parsec_workspace
-OUT_PATH=${WRK_PATH}/outputs
+OUT_PATH=${WRK_PATH}/outputs/L1
 
 # Benchmark array
 declare -a BenchArray=(
@@ -47,6 +47,6 @@ declare -a BenchArray=(
 
 # Loop through the available benchmarks
 for bench in "${BenchArray[@]}"; do
-    python plot_L1.py ${OUT_PATH}/${bench}_L1*
+    python plot_L1.py ${OUT_PATH}/L1/${bench}_L1*
     mv L1.png L1_${bench}.png
 done
