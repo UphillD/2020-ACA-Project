@@ -36,7 +36,7 @@ You will also need to make the following changes in the pintool code, according 
 
 3. Make the \*.sh files executable:
 
-        $ chmod +x \*.sh
+        $ chmod +x *.sh
 
 ## Usage
 
