@@ -47,6 +47,6 @@ declare -a BenchArray=(
 
 # Loop through the available benchmarks
 for bench in "${BenchArray[@]}"; do
-    python plot_L1.py ${OUT_PATH}/L1/${bench}_L1*
+    python plot_L1.py ${OUT_PATH}/${bench}_L1*
     mv L1.png L1_${bench}.png
 done
