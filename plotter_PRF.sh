@@ -3,7 +3,7 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Plotter Script (TLB)
+# Plotter Script (PRF)
 # Install python-matplotlib before running.
 
 # This assumes a directory tree like the following:
@@ -11,7 +11,7 @@
 # ├ CSLab code dir  ${HLP_PATH}
 # ├ Parsec dir      ${PAR_PATH}
 # └ PIN dir         ${PIN_PATH}
-# It also assumes that you used the bencher_TLB.sh script for the benchmarks
+# It also assumes that you used the bencher_PRF.sh script for the benchmarks
 
 # ------------------------------------------------
 # You should only have to change things below here
@@ -29,7 +29,7 @@ PAR_PATH=${ACA_PATH}/parsec-3.0       # Parsec folder
 
 # Workspace paths
 WRK_PATH=${PAR_PATH}/parsec_workspace
-OUT_PATH=${WRK_PATH}/outputs/TLB
+OUT_PATH=${WRK_PATH}/outputs/PRF
 
 # Benchmark array
 declare -a BenchArray=(
@@ -47,6 +47,6 @@ declare -a BenchArray=(
 
 # Loop through the available benchmarks
 for bench in "${BenchArray[@]}"; do
-    python plot_TLB.py ${OUT_PATH}/${bench}_TLB*
-    mv TLB.png TLB_${bench}.png
+    python plot_PRF.py ${OUT_PATH}/${bench}_PRF*
+    mv PRF.png PRF_${bench}.png
 done

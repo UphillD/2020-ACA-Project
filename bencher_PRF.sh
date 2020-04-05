@@ -90,7 +90,7 @@ for bench in "${BenchArray[@]}"; do
         L2prf=$(echo $cfg)
 
         # Format the output file
-        OUT_FILE=$(printf "%s_PRF_%04d_%02d_%03d.out" ${benchName} ${L2prf})
+        OUT_FILE=$(printf "%s_PRF_%02d.out" ${benchName} ${L2prf})
         OUT_FILE="${OUT_PATH}/${OUT_FILE}"
 
         # Format the command string

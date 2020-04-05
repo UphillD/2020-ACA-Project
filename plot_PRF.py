@@ -1,7 +1,7 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Plotting Code (TLB)
+# Plotting Code (PRF)
 # You shouldn't run this directly, run plotter_TLB.sh instead.
 # Dependencies: python, python-matplotlib
 
@@ -24,25 +24,20 @@ for outFile in sys.argv[1:]:
             total_instructions = int(tokens[2])
         elif (line.startswith("IPC:")):
             ipc = float(tokens[1])
-        elif (line.startswith("  Data Tlb")):
-            sizeLine = fp.readline()
-            tlb_entries = sizeLine.split()[1]
-            bsizeLine = fp.readline()
-            tlb_psize = bsizeLine.split()[2]
-            assocLine = fp.readline()
-            tlb_assoc = assocLine.split()[1]
-        elif (line.startswith("Tlb-Total-Misses")):
-            tlb_total_misses = int(tokens[1])
-            tlb_miss_rate = float(tokens[2].split('%')[0])
-            mpki = tlb_total_misses / (total_instructions / 1000.0)
+        elif (line.startswith("L2_prefetching")):
+            l2_prf = int(tokens[3].split(')')[0])
+        elif (line.startswith("L2-Total-Misses")):
+            l2_total_misses = int(tokens[1])
+            l2_miss_rate = float(tokens[2].split('%')[0])
+            mpki = l2_total_misses / (total_instructions / 1000.0)
 
         line = fp.readline()
 
     fp.close()
 
-    tlbConfigStr = '{}.{}.{}B'.format(tlb_entries,tlb_assoc,tlb_psize)
-    print(tlbConfigStr)
-    x_Axis.append(tlbConfigStr)
+    prfConfigStr = '{}'.format(l2_prf)
+    print(prfConfigStr)
+    x_Axis.append(prfConfigStr)
     ipc_Axis.append(ipc)
     mpki_Axis.append(mpki)
 
@@ -52,7 +47,7 @@ print(mpki_Axis)
 
 fig, ax1 = plt.subplots()
 ax1.grid(True)
-ax1.set_xlabel("TLB Size.Associativity.Page Size")
+ax1.set_xlabel("Prefetching n")
 
 xAx = np.arange(len(x_Axis))
 ax1.xaxis.set_ticks(np.arange(0, len(x_Axis), 1))
@@ -68,7 +63,7 @@ ax2.set_xticklabels(x_Axis, rotation=45)
 ax2.set_xlim(-0.5, len(x_Axis) - 0.5)
 ax2.set_ylim(min(mpki_Axis) - 0.05 * min(mpki_Axis), max(mpki_Axis) + 0.05 * max(mpki_Axis))
 ax2.set_ylabel("$MPKI$")
-line2 = ax2.plot(mpki_Axis, label="TLBD_MPKI", color="green",marker='o')
+line2 = ax2.plot(mpki_Axis, label="L2D_MPKI", color="green",marker='o')
 
 lns = line1 + line2
 labs = [l.get_label() for l in lns]
@@ -76,4 +71,4 @@ labs = [l.get_label() for l in lns]
 plt.title("IPC vs MPKI")
 lgd = plt.legend(lns, labs)
 lgd.draw_frame(False)
-plt.savefig("TLB.png",bbox_inches="tight")
+plt.savefig("PRF.png",bbox_inches="tight")
