@@ -3,7 +3,7 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Benchmark Execution Script (L1)
+# Benchmark Execution Script (TLB)
 
 # This assumes a directory tree like the following:
 # Main Project dir  ${ACA_PATH}
@@ -37,7 +37,7 @@ SIM_EXE=${HLP_PATH}/pintool/obj-intel64/simulator.so
 # Workspace directories
 WRK_PATH=${PAR_PATH}/parsec_workspace
 INP_PATH=${WRK_PATH}/inputs
-OUT_PATH=${WRK_PATH}/outputs/L1
+OUT_PATH=${WRK_PATH}/outputs/TLB
 LOG_PATH=${WRK_PATH}/logs
 EXE_PATH=${WRK_PATH}/executables
 
@@ -48,20 +48,21 @@ mkdir -p ${LOG_PATH} &> /dev/null
 # Fix for facesim
 ln -s ${PAR_PATH}/Face_Data .
 
-# L2, Prefetching & TLB configuration
+# L1, L2 & Prefetching configuration
+L1size=32
+L1assoc=8
+L1bsize=64
 L2size=1024
 L2assoc=8
 L2bsize=128
 L2prf=0
-TLBe=64
-TLBa=4
-TLBp=4096
 
-# Dynamic L1 configuration
-# Triples of <cache size>_<associativity>_<cache block size>
-CFGS="32_4_64 32_8_32 32_8_64 32_8_128
-      64_4_64 64_8_32 64_8_64 64_8_128
-      128_8_32 128_8_64 128_8_128"
+# Dynamic TLB configuration
+# Triples of <size>_<associativity>_<page size>
+CFGS="8_4_4096 16_4_4096 32_4_4096
+      64_1_4096 64_2_4096 64_4_4096
+      64_8_4096 64_16_4096 64_32_4096
+      64_64_4096 128_4_4096 256_4_4096"
 
 # Benchmark array
 declare -a BenchArray=(
@@ -87,13 +88,13 @@ for bench in "${BenchArray[@]}"; do
     # Loop through the different cache configurations
     for cfg in $CFGS; do
 
-        # Extract the L1 size, associativity and cache block size from the triplets
-        L1size=$(echo $cfg | cut -d'_' -f1)
-        L1assoc=$(echo $cfg | cut -d'_' -f2)
-        L1bsize=$(echo $cfg | cut -d'_' -f3)
+        # Extract the TLB size, associativity and page size from the triplets
+        TLBe=$(echo $cfg | cut -d'_' -f1)
+        TLBa=$(echo $cfg | cut -d'_' -f2)
+        TLBp=$(echo $cfg | cut -d'_' -f3)
 
         # Format the output file
-        OUT_FILE=$(printf "%s_L1_%04d_%02d_%03d.out" ${benchName} ${L1size} ${L1assoc} ${L1bsize})
+        OUT_FILE=$(printf "%s_TLB_%04d_%02d_%03d.out" ${benchName} ${TLBe} ${TLBa} ${TLBp})
         OUT_FILE="${OUT_PATH}/${OUT_FILE}"
 
         # Format the command string
@@ -107,9 +108,9 @@ for bench in "${BenchArray[@]}"; do
         echo
         echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
         echo " Running: ${benchName}"
-        echo " Config : L1 Cache Size = ${L1size}"
-        echo "          L1 Associativity = ${L1assoc}"
-        echo "          L1 Cache Block Size = ${L1bsize}"
+        echo " Config : TLB Size = ${TLBe}"
+        echo "          TLB Associativity = ${TLBa}"
+        echo "          TLB Page Size = ${TLBp}"
         echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
         echo
 
@@ -117,13 +118,15 @@ for bench in "${BenchArray[@]}"; do
         if ls -d ${OUT_PATH} | tail -1 | grep -q "${OUT_FILE}"; then
             # if it's the last benchmark run, rerun it
             echo "Found the last incomplete benchmark, rerunning"
-            time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_L1.log
+            time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_TLB.log
         elif test -f "${OUT_FILE}"; then
+            # if it's not the last benchmark run, and it already has been done, skip it
             echo "Benchmark already run"
             echo "skipping.."
         else
-            # Execute & time it
-            time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_L1.log
+            # else, execute it, time it & log it
+            time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_TLB.log
         fi
+
     done
 done

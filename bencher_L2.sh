@@ -88,7 +88,7 @@ for bench in "${BenchArray[@]}"; do
     # Loop through the different cache configurations
     for cfg in $CFGS; do
 
-        # Extract the L1 size, associativity and cache block size from the triplets
+        # Extract the L2 size, associativity and cache block size from the triplets
         L2size=$(echo $cfg | cut -d'_' -f1)
         L2assoc=$(echo $cfg | cut -d'_' -f2)
         L2bsize=$(echo $cfg | cut -d'_' -f3)
@@ -115,7 +115,7 @@ for bench in "${BenchArray[@]}"; do
         echo
 
         # Check if benchmark has already been run
-        if ls | tail -1 | grep -q "${OUT_FILE}"; then
+        if ls -d ${OUT_PATH} | tail -1 | grep -q "${OUT_FILE}"; then
             # if it's the last benchmark run, rerun it
             echo "Found the last incomplete benchmark, rerunning"
             time ${CMD} 2>&1 | tee -a ${LOG_PATH}/${benchName}_L2.log
