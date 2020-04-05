@@ -52,7 +52,7 @@ print(mpki_Axis)
 
 fig, ax1 = plt.subplots()
 ax1.grid(True)
-ax1.set_xlabel("Cache Size.Associativity.Cache Block Size")
+ax1.set_xlabel("L1 Cache Size.Associativity.Cache Block Size")
 
 xAx = np.arange(len(x_Axis))
 ax1.xaxis.set_ticks(np.arange(0, len(x_Axis), 1))

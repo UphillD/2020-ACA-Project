@@ -1,0 +1,11 @@
+# PNGs
+*.png
+
+# Inputs
+Face_Data
+
+# Outputs
+out.fluid
+output.txt
+pin.log
+prices.txt

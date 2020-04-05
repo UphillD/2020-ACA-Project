@@ -30,7 +30,7 @@ You will need to make the following changes in the pintool code, according to th
 
 You then have to remake the simulator tool:
 
-        make clean; make
+    make clean; make
 
 ## Installation
 
@@ -48,11 +48,13 @@ You then have to remake the simulator tool:
 
 Simply execute the script you wish to use, e.g.:
 
-        $ ./bencher_L1.sh
+    $ ./bencher_L1.sh
 
 The bencher scripts will run every benchmark with every configuration of the appropriate memory level (L1, L2, ..).
 
 The plotter scripts will produce the graphs for every benchmark with every configuration of the appropriate memory level (L1, L2, ..).
+
+The plotter_.._IPC_5|10pt scripts will produce the graphs required by the second exercise in the assignment. They will reproduce the graphs of the blackscholes benchmarks of the first question, but this time also apply a 5% or 10% reduction in Instructions Per Cycle (IPC) per doubling of the memory characteristics (size, block/page size, associativity).
 
 *Note 1: The bencher scripts produce the outputs in the path `<parsec_workspace>/outputs/<memory level>/` and the output logs in the path `<parsec_workspace>/logs/`*
 
