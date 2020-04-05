@@ -8,13 +8,10 @@ You need to follow all the installation instructions as mentioned in the assignm
 
 By the end you should have the following directory tree:
 
-Main Project dir  ${ACA_PATH}
-
-├ CSLab code dir  ${HLP_PATH}
-
-├ Parsec dir      ${PAR_PATH}
-
-└ PIN dir         ${PIN_PATH}
+    Main Project dir  ${ACA_PATH}
+    ├ CSLab code dir  ${HLP_PATH}
+    ├ Parsec dir      ${PAR_PATH}
+    └ PIN dir         ${PIN_PATH}
 
 # Installation
 

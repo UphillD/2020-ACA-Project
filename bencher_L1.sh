@@ -45,6 +45,9 @@ EXE_PATH=${WRK_PATH}/executables
 mkdir -p ${OUT_PATH} &> /dev/null
 mkdir -p ${LOG_PATH} &> /dev/null
 
+# Fix for facesim
+ln -s ${PAR_PATH}/Face_Data .
+
 # L2, Prefetching & TLB configuration
 L2size=1024
 L2assoc=8
