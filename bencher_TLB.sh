@@ -94,7 +94,7 @@ for bench in "${BenchArray[@]}"; do
         TLBp=$(echo $cfg | cut -d'_' -f3)
 
         # Format the output file
-        OUT_FILE=$(printf "%s_TLB_%04d_%02d_%03d.out" ${benchName} ${TLBe} ${TLBa} ${TLBp})
+        OUT_FILE=$(printf "%s_TLB_%03d_%02d_%04d.out" ${benchName} ${TLBe} ${TLBa} ${TLBp})
         OUT_FILE="${OUT_PATH}/${OUT_FILE}"
 
         # Format the command string

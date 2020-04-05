@@ -93,7 +93,7 @@ for bench in "${BenchArray[@]}"; do
         L1bsize=$(echo $cfg | cut -d'_' -f3)
 
         # Format the output file
-        OUT_FILE=$(printf "%s_L1_%04d_%02d_%03d.out" ${benchName} ${L1size} ${L1assoc} ${L1bsize})
+        OUT_FILE=$(printf "%s_L1_%03d_%01d_%03d.out" ${benchName} ${L1size} ${L1assoc} ${L1bsize})
         OUT_FILE="${OUT_PATH}/${OUT_FILE}"
 
         # Format the command string

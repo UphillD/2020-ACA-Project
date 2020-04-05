@@ -68,7 +68,7 @@ ax2.set_xticklabels(x_Axis, rotation=45)
 ax2.set_xlim(-0.5, len(x_Axis) - 0.5)
 ax2.set_ylim(min(mpki_Axis) - 0.05 * min(mpki_Axis), max(mpki_Axis) + 0.05 * max(mpki_Axis))
 ax2.set_ylabel("$MPKI$")
-line2 = ax2.plot(mpki_Axis, label="TLBD_MPKI", color="green",marker='o')
+line2 = ax2.plot(mpki_Axis, label="TLB_MPKI", color="green",marker='o')
 
 lns = line1 + line2
 labs = [l.get_label() for l in lns]
