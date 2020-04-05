@@ -1,7 +1,7 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Plotting Code (TLB)
+# Plotting Code (TLB, 5% IPC reduction per memory doubling)
 # You shouldn't run this directly, run plotter_TLB.sh instead.
 # Dependencies: python, python-matplotlib
 
