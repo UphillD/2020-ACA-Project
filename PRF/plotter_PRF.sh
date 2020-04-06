@@ -47,6 +47,6 @@ declare -a BenchArray=(
 
 # Loop through the available benchmarks
 for bench in "${BenchArray[@]}"; do
-    python plot_PRF.py ${bench} ${OUT_PATH}/${bench}_PRF*
+    python graph_PRF.py ${bench} ${OUT_PATH}/${bench}_PRF*
     mv PRF.png PRF_${bench}.png
 done
