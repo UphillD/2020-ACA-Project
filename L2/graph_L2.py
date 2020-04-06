@@ -1,8 +1,8 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Plotting Code (L1)
-# You shouldn't run this directly, run plotter_L1.sh instead.
+# Plotting Code (L2)
+# You shouldn't run this directly, run plotter_L2.sh instead.
 # Dependencies: python, python-matplotlib
 
 import sys
@@ -17,7 +17,6 @@ mpki_Axis = []
 
 l2_size_base = 512.0
 l2_assoc_base = 8.0
-l2_bsize_base = 64.0
 
 for outFile in sys.argv[3:]:
     fp = open(outFile)
@@ -47,7 +46,6 @@ for outFile in sys.argv[3:]:
     index = 0.0
     index += (l2_size / l2_size_base) - 1.0
     index += (l2_assoc / l2_assoc_base) - 1.0
-    index += (l2_bsize / l2_bsize_base) - 1.0
 
     while index > 0.0:
         ipc *= float(sys.argv[1])

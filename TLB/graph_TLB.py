@@ -17,7 +17,6 @@ mpki_Axis = []
 
 tlb_entries_base = 8.0
 tlb_assoc_base = 4.0
-tlb_psize_base = 4096.0
 
 for outFile in sys.argv[3:]:
     fp = open(outFile)
@@ -47,7 +46,6 @@ for outFile in sys.argv[3:]:
     index = 0.0
     index += (tlb_entries / tlb_entries_base) - 1.0
     index += (tlb_assoc / tlb_assoc_base) - 1.0
-    index += (tlb_psize / tlb_psize_base) - 1.0
 
     while index > 0.0:
         ipc *= float(sys.argv[1])

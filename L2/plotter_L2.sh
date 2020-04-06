@@ -52,8 +52,12 @@ for bench in "${BenchArray[@]}"; do
 done
 
 # Create the graphs for the second question
-python graph_L2.py 0.95  "blackscholes, 5% IPC Reduction" ${OUT_PATH}/blackscholes_L2*
-mv L2.png L2_blackscholes_5pt.png
+for bench in "${BenchArray[@]}"; do
+    python graph_L2.py 0.95 "${bench}, 5% IPC Reduction" ${OUT_PATH}/${bench}_L2*
+    mv L2.png L2_${bench}_5pt.png
+done
 
-python graph_L2.py 0.90  "blackscholes, 10% IPC Reduction" ${OUT_PATH}/blackscholes_L2*
-mv L2.png L2_blackscholes_10pt.png
+for bench in "${BenchArray[@]}"; do
+    python graph_L2.py 0.90 "${bench}, 10% IPC Reduction" ${OUT_PATH}/${bench}_L2*
+    mv L2.png L2_${bench}_10pt.png
+done

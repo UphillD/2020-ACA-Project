@@ -52,8 +52,12 @@ for bench in "${BenchArray[@]}"; do
 done
 
 # Create the graphs for the second question
-python graph_TLB.py 0.95  "blackscholes, 5% IPC Reduction" ${OUT_PATH}/blackscholes_TLB*
-mv TLB.png TLB_blackscholes_5pt.png
+for bench in "${BenchArray[@]}"; do
+    python graph_TLB.py 0.95 "${bench}, 5% IPC Reduction" ${OUT_PATH}/${bench}_TLB*
+    mv TLB.png TLB_${bench}_5pt.png
+done
 
-python graph_TLB.py 0.90  "blackscholes, 10% IPC Reduction" ${OUT_PATH}/blackscholes_TLB*
-mv TLB.png TLB_blackscholes_10pt.png
+for bench in "${BenchArray[@]}"; do
+    python graph_TLB.py 0.90 "${bench}, 10% IPC Reduction" ${OUT_PATH}/${bench}_TLB*
+    mv TLB.png TLB_${bench}_10pt.png
+done
