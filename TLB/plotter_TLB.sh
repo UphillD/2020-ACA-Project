@@ -3,7 +3,7 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Plotter Script (TLB, 5% IPC reduction per memory doubling)
+# Plotter Script (TLB)
 # Install python-matplotlib before running.
 
 # This assumes a directory tree like the following:
@@ -34,19 +34,26 @@ OUT_PATH=${WRK_PATH}/outputs/TLB
 # Benchmark array
 declare -a BenchArray=(
         "blackscholes"
-#        "bodytrack"
-#        "canneal"
-#        "facesim"
-#        "ferret"
-#        "fluidanimate"
-#        "freqmine"
-#        "rtview"
-#        "streamcluster"
-#        "swaptions"
+        "bodytrack"
+        "canneal"
+        "facesim"
+        "ferret"
+        "fluidanimate"
+        "freqmine"
+        "rtview"
+        "streamcluster"
+        "swaptions"
 )
 
 # Loop through the available benchmarks
 for bench in "${BenchArray[@]}"; do
-    python plot_TLB_IPC_5pt.py ${OUT_PATH}/${bench}_TLB*
-    mv TLB.png TLB_${bench}_IPC_5pt.png
+    python graph_TLB.py 1.0 ${bench} ${OUT_PATH}/${bench}_TLB*
+    mv TLB.png TLB_${bench}.png
 done
+
+# Create the graphs for the second question
+python graph_TLB.py 0.95  "blackscholes, 5% IPC Reduction" ${OUT_PATH}/blackscholes_TLB*
+mv TLB.png TLB_blackscholes_5pt.png
+
+python graph_TLB.py 0.90  "blackscholes, 10% IPC Reduction" ${OUT_PATH}/blackscholes_TLB*
+mv TLB.png TLB_blackscholes_10pt.png

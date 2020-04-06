@@ -1,7 +1,7 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Plotting Code (TLB, 10% IPC reduction per memory doubling)
+# Plotting Code (TLB)
 # You shouldn't run this directly, run plotter_TLB.sh instead.
 # Dependencies: python, python-matplotlib
 
@@ -15,12 +15,11 @@ x_Axis = []
 ipc_Axis = []
 mpki_Axis = []
 
-index = 0
-tlb_entries_base = 8
-tlb_assoc_base = 4
-tlb_psize_base = 4096
+tlb_entries_base = 8.0
+tlb_assoc_base = 4.0
+tlb_psize_base = 4096.0
 
-for outFile in sys.argv[1:]:
+for outFile in sys.argv[3:]:
     fp = open(outFile)
     line = fp.readline()
     while line:
@@ -31,11 +30,11 @@ for outFile in sys.argv[1:]:
             ipc = float(tokens[1])
         elif (line.startswith("  Data Tlb")):
             sizeLine = fp.readline()
-            tlb_entries = int(sizeLine.split()[1])
+            tlb_entries = float(sizeLine.split()[1])
             bsizeLine = fp.readline()
-            tlb_psize = int(bsizeLine.split()[2])
+            tlb_psize = float(bsizeLine.split()[2])
             assocLine = fp.readline()
-            tlb_assoc = int(assocLine.split()[1])
+            tlb_assoc = float(assocLine.split()[1])
         elif (line.startswith("Tlb-Total-Misses")):
             tlb_total_misses = int(tokens[1])
             tlb_miss_rate = float(tokens[2].split('%')[0])
@@ -45,15 +44,17 @@ for outFile in sys.argv[1:]:
 
     fp.close()
 
-    index += (tlb_entries / tlb_entries_base) - 1
-    index += (tlb_assoc / tlb_assoc_base) - 1
-    index += (tlb_psize / tlb_psize_base) - 1
+    index = 0.0
+    index += (tlb_entries / tlb_entries_base) - 1.0
+    index += (tlb_assoc / tlb_assoc_base) - 1.0
+    index += (tlb_psize / tlb_psize_base) - 1.0
 
-    while index > 0:
-        ipc *= 90/100
-        index -= 1
+    while index > 0.0:
+        ipc *= float(sys.argv[1])
+        index -= 1.0
 
-    tlbConfigStr = '{}.{}.{}B'.format(tlb_entries,tlb_assoc,tlb_psize)
+
+    tlbConfigStr = '{}.{}.{}B'.format(int(tlb_entries),int(tlb_assoc),int(tlb_psize))
     print(tlbConfigStr)
     x_Axis.append(tlbConfigStr)
     ipc_Axis.append(ipc)
@@ -81,12 +82,13 @@ ax2.set_xticklabels(x_Axis, rotation=45)
 ax2.set_xlim(-0.5, len(x_Axis) - 0.5)
 ax2.set_ylim(min(mpki_Axis) - 0.05 * min(mpki_Axis), max(mpki_Axis) + 0.05 * max(mpki_Axis))
 ax2.set_ylabel("$MPKI$")
-line2 = ax2.plot(mpki_Axis, label="TLB_MPKI", color="green",marker='o')
+line2 = ax2.plot(mpki_Axis, label="L1D_MPKI", color="green",marker='o')
 
 lns = line1 + line2
 labs = [l.get_label() for l in lns]
 
-plt.title("IPC vs MPKI, 10% IPC Reduction")
+plt.title(str(sys.argv[2]))
+plt.suptitle("IPC vs MPKI")
 lgd = plt.legend(lns, labs)
 lgd.draw_frame(False)
 plt.savefig("TLB.png",bbox_inches="tight")
