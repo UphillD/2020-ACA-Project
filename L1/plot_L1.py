@@ -1,8 +1,8 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Plotting Code (L1, 10% IPC reduction per memory doubling)
-# You shouldn't run this directly, run plotter_L1_IPC_5pt.sh instead.
+# Plotting Code (L1)
+# You shouldn't run this directly, run plotter_L1.sh instead.
 # Dependencies: python, python-matplotlib
 
 import sys
@@ -15,12 +15,11 @@ x_Axis = []
 ipc_Axis = []
 mpki_Axis = []
 
-index = 0
-l1_size_base = 32
-l1_assoc_base = 4
-l1_bsize_base = 64
+l1_size_base = 32.0
+l1_assoc_base = 4.0
+l1_bsize_base = 32.0
 
-for outFile in sys.argv[1:]:
+for outFile in sys.argv[3:]:
     fp = open(outFile)
     line = fp.readline()
     while line:
@@ -31,11 +30,11 @@ for outFile in sys.argv[1:]:
             ipc = float(tokens[1])
         elif (line.startswith("  L1-Data Cache")):
             sizeLine = fp.readline()
-            l1_size = int(sizeLine.split()[1])
+            l1_size = float(sizeLine.split()[1])
             bsizeLine = fp.readline()
-            l1_bsize = int(bsizeLine.split()[2])
+            l1_bsize = float(bsizeLine.split()[2])
             assocLine = fp.readline()
-            l1_assoc = int(assocLine.split()[1])
+            l1_assoc = float(assocLine.split()[1])
         elif (line.startswith("L1-Total-Misses")):
             l1_total_misses = int(tokens[1])
             l1_miss_rate = float(tokens[2].split('%')[0])
@@ -45,16 +44,17 @@ for outFile in sys.argv[1:]:
 
     fp.close()
 
-    index += (l1_size / l1_size_base) - 1
-    index += (l1_assoc / l1_assoc_base) - 1
-    index += (l1_bsize / l1_bsize_base) - 1
+    index = 0.0
+    index += (l1_size / l1_size_base) - 1.0
+    index += (l1_assoc / l1_assoc_base) - 1.0
+    index += (l1_bsize / l1_bsize_base) - 1.0
 
-    while index > 0:
-        ipc *= 90/100
-        index -= 1
+    while index > 0.0:
+        ipc *= float(sys.argv[1])
+        index -= 1.0
 
 
-    l1ConfigStr = '{}K.{}.{}B'.format(l1_size,l1_assoc,l1_bsize)
+    l1ConfigStr = '{}K.{}.{}B'.format(int(l1_size),int(l1_assoc),int(l1_bsize))
     print(l1ConfigStr)
     x_Axis.append(l1ConfigStr)
     ipc_Axis.append(ipc)
@@ -87,7 +87,8 @@ line2 = ax2.plot(mpki_Axis, label="L1D_MPKI", color="green",marker='o')
 lns = line1 + line2
 labs = [l.get_label() for l in lns]
 
-plt.title("IPC vs MPKI, 10% IPC Reduction")
+plt.title(str(sys.argv[2]))
+plt.suptitle("IPC vs MPKI")
 lgd = plt.legend(lns, labs)
 lgd.draw_frame(False)
 plt.savefig("L1.png",bbox_inches="tight")
