@@ -31,11 +31,11 @@ for outFile in sys.argv[1:]:
             ipc = float(tokens[1])
         elif (line.startswith("  L2-Data Cache")):
             sizeLine = fp.readline()
-            l2_size = sizeLine.split()[1]
+            l2_size = int(sizeLine.split()[1])
             bsizeLine = fp.readline()
-            l2_bsize = bsizeLine.split()[2]
+            l2_bsize = int(bsizeLine.split()[2])
             assocLine = fp.readline()
-            l2_assoc = assocLine.split()[1]
+            l2_assoc = int(assocLine.split()[1])
         elif (line.startswith("L2-Total-Misses")):
             l2_total_misses = int(tokens[1])
             l2_miss_rate = float(tokens[2].split('%')[0])
@@ -86,7 +86,7 @@ line2 = ax2.plot(mpki_Axis, label="L2D_MPKI", color="green",marker='o')
 lns = line1 + line2
 labs = [l.get_label() for l in lns]
 
-plt.title("IPC vs MPKI")
+plt.title("IPC vs MPKI, 10% IPC Reduction")
 lgd = plt.legend(lns, labs)
 lgd.draw_frame(False)
 plt.savefig("L2.png",bbox_inches="tight")

@@ -31,11 +31,11 @@ for outFile in sys.argv[1:]:
             ipc = float(tokens[1])
         elif (line.startswith("  L2-Data Cache")):
             sizeLine = fp.readline()
-            l2_size = sizeLine.split()[1]
+            l2_size = int(sizeLine.split()[1])
             bsizeLine = fp.readline()
-            l2_bsize = bsizeLine.split()[2]
+            l2_bsize = int(bsizeLine.split()[2])
             assocLine = fp.readline()
-            l2_assoc = assocLine.split()[1]
+            l2_assoc = int(assocLine.split()[1])
         elif (line.startswith("L2-Total-Misses")):
             l2_total_misses = int(tokens[1])
             l2_miss_rate = float(tokens[2].split('%')[0])
