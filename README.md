@@ -50,12 +50,12 @@ Simply execute the script you wish to use, e.g.:
 
     $ ./bencher_L1.sh
 
-The bencher scripts will run every benchmark with every configuration of the appropriate memory level (L1, L2, ..).
+The bencher scripts will run every benchmark with every configuration of the appropriate memory level (L1, L2, ..), and place their outputs in the path:
 
-The plotter scripts will produce the graphs for every benchmark with every configuration of the appropriate memory level (L1, L2, ..).
+    <parsec_workspace>/outputs/<memory level>/
 
-The plotter_.._IPC_5|10pt scripts will produce the graphs required by the second exercise in the assignment. They will reproduce the graphs of the blackscholes benchmarks of the first question, but this time also apply a 5% or 10% reduction in Instructions Per Cycle (IPC) per doubling of the memory characteristics (size, block/page size, associativity).
+The plotter scripts will produce the graphs for every benchmark with every configuration of the appropriate memory level (L1, L2, ..) in the folder they are executed from.
 
-*Note 1: The bencher scripts produce the outputs in the path `<parsec_workspace>/outputs/<memory level>/` and the output logs in the path `<parsec_workspace>/logs/`*
+They will also produce the same graphs if there was a 5% and 10% IPC reduction in place for every doubling of the memory capacity or associtivity. Those graphs can be distinguished by the `_5pt` and `_10pt` suffixes.
 
-*Note 2: There is a simple check in place to avoid rerunning the same benchmarks; if the output for the current benchmark already exists, and it's not the last one in the folder, it is skipped.*
+*Important Note: There is a simple check in place to avoid rerunning the same benchmarks; if the output for the current benchmark already exists, and it's not the last one in the folder, it is skipped.*
