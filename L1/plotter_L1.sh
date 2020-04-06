@@ -47,13 +47,13 @@ declare -a BenchArray=(
 
 # Loop through the available benchmarks & create the graphs
 for bench in "${BenchArray[@]}"; do
-    python plot_L1.py 1.0 ${bench} ${OUT_PATH}/${bench}_L1*
+    python graph_L1.py 1.0 ${bench} ${OUT_PATH}/${bench}_L1*
     mv L1.png L1_${bench}.png
 done
 
 # Create the graphs for the second question
-python plot_L1.py 0.95  "blackscholes, 5% IPC Reduction" ${OUT_PATH}/blackscholes_L1*
+python graph_L1.py 0.95  "blackscholes, 5% IPC Reduction" ${OUT_PATH}/blackscholes_L1*
 mv L1.png L1_blackscholes_5pt.png
 
-python plot_L1.py 0.90  "blackscholes, 10% IPC Reduction" ${OUT_PATH}/blackscholes_L1*
+python graph_L1.py 0.90  "blackscholes, 10% IPC Reduction" ${OUT_PATH}/blackscholes_L1*
 mv L1.png L1_blackscholes_10pt.png

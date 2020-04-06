@@ -3,7 +3,7 @@
 # Advanced Computer Architecture, 2019-2020, 3.4.37.8
 # 1st Assignment
 
-# Plotter Script (L2, 5% IPC reduction per memory doubling)
+# Plotter Script (L2)
 # Install python-matplotlib before running.
 
 # This assumes a directory tree like the following:
@@ -34,19 +34,26 @@ OUT_PATH=${WRK_PATH}/outputs/L2
 # Benchmark array
 declare -a BenchArray=(
         "blackscholes"
-#        "bodytrack"
-#        "canneal"
-#        "facesim"
-#        "ferret"
-#        "fluidanimate"
-#        "freqmine"
-#        "rtview"
-#        "streamcluster"
-#        "swaptions"
+        "bodytrack"
+        "canneal"
+        "facesim"
+        "ferret"
+        "fluidanimate"
+        "freqmine"
+        "rtview"
+        "streamcluster"
+        "swaptions"
 )
 
 # Loop through the available benchmarks
 for bench in "${BenchArray[@]}"; do
-    python plot_L2_IPC_5pt.py ${OUT_PATH}/${bench}_L2*
-    mv L2.png L2_${bench}_IPC_5pt.png
+    python graph_L2.py 1.0 ${bench} ${OUT_PATH}/${bench}_L2*
+    mv L2.png L2_${bench}.png
 done
+
+# Create the graphs for the second question
+python graph_L2.py 0.95  "blackscholes, 5% IPC Reduction" ${OUT_PATH}/blackscholes_L2*
+mv L2.png L2_blackscholes_5pt.png
+
+python graph_L2.py 0.90  "blackscholes, 10% IPC Reduction" ${OUT_PATH}/blackscholes_L2*
+mv L2.png L2_blackscholes_10pt.png
