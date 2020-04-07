@@ -43,14 +43,15 @@ for outFile in sys.argv[3:]:
 
     fp.close()
 
-    index = 0.0
-    index += (tlb_entries / tlb_entries_base) - 1.0
-    index += (tlb_assoc / tlb_assoc_base) - 1.0
-
-    while index > 0.0:
-        ipc *= float(sys.argv[1])
-        index -= 1.0
-
+    if sys.argv[1] == "true":
+        entr_reduction = (tlb_entries / tlb_entries_base) - 1.0
+        while (entr_reduction > 0.0):
+            ipc *= 0.90
+            entr_reduction -= 1.0
+        assoc_reduction = (tlb_assoc / tlb_assoc_base) - 1.0
+        while (assoc_reduction > 0.0):
+            ipc *= 0.95
+            assoc_reduction -= 1.0
 
     tlbConfigStr = '{}.{}.{}B'.format(int(tlb_entries),int(tlb_assoc),int(tlb_psize))
     print(tlbConfigStr)

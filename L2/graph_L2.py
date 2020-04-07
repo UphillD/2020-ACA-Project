@@ -43,14 +43,15 @@ for outFile in sys.argv[3:]:
 
     fp.close()
 
-    index = 0.0
-    index += (l2_size / l2_size_base) - 1.0
-    index += (l2_assoc / l2_assoc_base) - 1.0
-
-    while index > 0.0:
-        ipc *= float(sys.argv[1])
-        index -= 1.0
-
+    if sys.argv[1] == "true":
+        size_reduction = (l2_size / l2_size_base) - 1.0
+        while (size_reduction > 0.0):
+            ipc *= 0.90
+            size_reduction -= 1.0
+        assoc_reduction = (l2_assoc / l2_assoc_base) - 1.0
+        while (assoc_reduction > 0.0):
+            ipc *= 0.95
+            assoc_reduction -= 1.0
 
     l2ConfigStr = '{}K.{}.{}B'.format(int(l2_size),int(l2_assoc),int(l2_bsize))
     print(l2ConfigStr)
