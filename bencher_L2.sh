@@ -46,7 +46,7 @@ mkdir -p ${OUT_PATH} &> /dev/null
 mkdir -p ${LOG_PATH} &> /dev/null
 
 # Fix for facesim
-ln -s ${PAR_PATH}/Face_Data .
+ln -s ${WRK_PATH}/Face_Data .
 
 # L1, Prefetching & TLB configuration
 L1size=32
