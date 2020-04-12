@@ -46,7 +46,9 @@ You then have to remake the simulator tool:
 
 ## Usage
 
-Simply execute the launcher.sh script, and follow the prompts!
+Simply execute the launcher.sh script, and follow the prompts:
+
+    $ ./launcher.sh
 
 Alternatively, execute the script you wish to use directly, e.g.:
 
@@ -54,9 +56,7 @@ Alternatively, execute the script you wish to use directly, e.g.:
 
 However, you *will* have to change the paths manually in every script if you plan to execute them manually.
 
-The bencher scripts will run every benchmark with every configuration of the appropriate memory level (L1, L2, ..), and place their outputs in the path:
-
-    <parsec_workspace>/outputs/<memory level>/
+The bencher scripts will run every benchmark with every configuration of the appropriate memory level (L1, L2, ..), and place their outputs in the path: `<parsec_workspace>/outputs/<memory level>/`
 
 The plotter scripts will produce the graphs for every benchmark with every configuration of the appropriate memory level (L1, L2, ..) in the folder they are executed from.
 
