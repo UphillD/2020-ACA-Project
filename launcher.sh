@@ -56,26 +56,26 @@ echo "Please enter the memory level: (L1, L2, TLB, PRF)"
 
 read OPT2
 case $OPT2 in
-    L1)
-        echo "L1 memory level selected!"
-        LEVEL=L1
-        ;;
-    L2)
-        echo "L2 memory level selected!"
-        LEVEL=L2
-        ;;
-    TLB)
-        echo "TLB memory level selected!"
-        LEVEL=TLB
-        ;;
-    PRF)
-        echo "PRF memory level selected!"
-        LEVEL=PRF
-        ;;
-    *)
-        echo "Memory level not recognized, please try again!"
-        exit
-        ;;
+L1)
+    echo "L1 memory level selected!"
+    LEVEL=L1
+    ;;
+L2)
+    echo "L2 memory level selected!"
+    LEVEL=L2
+    ;;
+TLB)
+    echo "TLB memory level selected!"
+    LEVEL=TLB
+    ;;
+PRF)
+    echo "PRF memory level selected!"
+    LEVEL=PRF
+    ;;
+*)
+    echo "Memory level not recognized, please try again!"
+    exit
+    ;;
 esac
 
 echo "Launching $SCRIPT$LEVEL!"
