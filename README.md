@@ -38,17 +38,21 @@ You then have to remake the simulator tool:
 
         $ git clone https://github.com/UphillD/advcomparch-2020-helpers.git
 
-2. Edit the \*.sh files with the appropriate paths.
+2. Edit the launcher.sh file with the appropriate paths.
 
 3. Make the \*.sh files executable:
 
-        $ chmod +x *.sh
+        $ find . -type f -iname "*.sh" -exec chmod +x {} \;
 
 ## Usage
 
-Simply execute the script you wish to use, e.g.:
+Simply execute the launcher.sh script, and follow the prompts!
+
+Alternatively, execute the script you wish to use directly, e.g.:
 
     $ ./bencher_L1.sh
+
+However, you *will* have to change the paths manually in every script if you plan to execute them manually.
 
 The bencher scripts will run every benchmark with every configuration of the appropriate memory level (L1, L2, ..), and place their outputs in the path:
 
@@ -56,6 +60,6 @@ The bencher scripts will run every benchmark with every configuration of the app
 
 The plotter scripts will produce the graphs for every benchmark with every configuration of the appropriate memory level (L1, L2, ..) in the folder they are executed from.
 
-They will also produce the same graphs if there was a 5% and 10% IPC reduction in place for every doubling of the memory capacity or associtivity. Those graphs can be distinguished by the `_5pt` and `_10pt` suffixes.
+They will also produce the same graphs if there was a 5% and 10% IPC reduction in place for every doubling of the memory capacity or associtivity. Those graphs can be distinguished by the "_Red" suffix.
 
 *Important Note: There is a simple check in place to avoid rerunning the same benchmarks; if the output for the current benchmark already exists, and it's not the last one in the folder, it is skipped.*

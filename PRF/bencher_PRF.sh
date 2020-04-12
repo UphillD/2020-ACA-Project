@@ -16,12 +16,12 @@
 # ------------------------------------------------
 
 # Project directory
-ACA_PATH=~/Projects/advcomparch
+ACA_PATH:=~/Projects/advcomparch &> /dev/null
 
 # Main directories
-HLP_PATH=${ACA_PATH}/ex1-helpcode     # CSLab Helper code & pintool
-PAR_PATH=${ACA_PATH}/parsec-3.0       # Parsec folder
-PIN_PATH=${ACA_PATH}/pin-3.13         # PIN folder
+HLP_PATH:=${ACA_PATH}/ex1-helpcode &> /dev/null     # CSLab Helper code & pintool
+PAR_PATH:=${ACA_PATH}/parsec-3.0 &> /dev/null       # Parsec folder
+PIN_PATH:=${ACA_PATH}/pin-3.13 &> /dev/null         # PIN folder
 
 # ------------------------------------------------
 # You should only have to change things above here
@@ -46,7 +46,7 @@ mkdir -p ${OUT_PATH} &> /dev/null
 mkdir -p ${LOG_PATH} &> /dev/null
 
 # Fix for facesim
-ln -s ${WRK_PATH}/Face_Data .
+ln -s ${INP_PATH}/Face_Data .
 
 # L1, L2 & TLB configuration
 L1size=32

@@ -18,10 +18,10 @@
 # ------------------------------------------------
 
 # Project directory
-ACA_PATH=~/Projects/advcomparch
+ACA_PATH:=~/Projects/advcomparch &> /dev/null
 
 # Main directories
-PAR_PATH=${ACA_PATH}/parsec-3.0       # Parsec folder
+PAR_PATH:=${ACA_PATH}/parsec-3.0 &> /dev/null     # Parsec folder
 
 # ------------------------------------------------
 # You should only have to change things above here
