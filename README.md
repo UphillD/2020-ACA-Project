@@ -54,7 +54,9 @@ Alternatively, execute the script you wish to use directly, e.g.:
 
     $ ./bencher_L1.sh
 
-However, you *will* have to change the paths manually in every script if you plan to execute them manually.
+However, you **will** have to change the paths manually in every script if you plan to execute them manually.
+
+## Notes
 
 The bencher scripts will run every benchmark with every configuration of the appropriate memory level (L1, L2, ..), and place their outputs in the path: `<parsec_workspace>/outputs/<memory level>/`
 
