@@ -44,11 +44,11 @@ for outFile in sys.argv[3:]:
     fp.close()
 
     if sys.argv[1] == "true":
-        entr_reduction = (tlb_entries / tlb_entries_base) - 1.0
+        entr_reduction = float(np.log2(tlb_entries / tlb_entries_base))
         while (entr_reduction > 0.0):
             ipc *= 0.90
             entr_reduction -= 1.0
-        assoc_reduction = (tlb_assoc / tlb_assoc_base) - 1.0
+        assoc_reduction = float(np.log2(tlb_assoc / tlb_assoc_base))
         while (assoc_reduction > 0.0):
             ipc *= 0.95
             assoc_reduction -= 1.0

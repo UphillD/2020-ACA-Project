@@ -44,11 +44,11 @@ for outFile in sys.argv[3:]:
     fp.close()
 
     if sys.argv[1] == "true":
-        size_reduction = (l2_size / l2_size_base) - 1.0
+        size_reduction = float(np.log2(l2_size / l2_size_base))
         while (size_reduction > 0.0):
             ipc *= 0.90
             size_reduction -= 1.0
-        assoc_reduction = (l2_assoc / l2_assoc_base) - 1.0
+        assoc_reduction = float(np.log2(l2_assoc / l2_assoc_base))
         while (assoc_reduction > 0.0):
             ipc *= 0.95
             assoc_reduction -= 1.0
