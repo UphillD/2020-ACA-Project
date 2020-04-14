@@ -19,14 +19,45 @@ The names in the curly brackets are the names of the paths you have to change in
 
 You will need to make the following changes in the pintool code, according to the advcomparch mailing list:
 
-1. In the `<CSLab Code directory>/pintool/cache.h`, make the following changes:
+1. In the `<CSLab Code directory>/pintool/tlb.h`, make the following change:
+
+        163:  UINT32 HitLatency = 0, UINT32 MissLatency = 100);
+
+2. In the `<CSLab Code directory>/pintool/cache.h`, make the following changes:
 
         207:  UINT32 l1HitLatency = 1, UINT32 l2HitLatency = 15,
         208:  UINT32 l2MissLatency = 250);
 
-2. In the `<CSLab Code directory>/pintool/tlb.h`, make the following change:
+3. In the `<CSLab Code directory>/pintool/cache.h`, add the prefetching code, starting at line 452 (courtesy of Thanasis Delis):
 
-        163:  UINT32 HitLatency = 0, UINT32 MissLatency = 100);
+        // PREFETCHING
+        ADDRINT prefetch_addr = addr;
+        for (UINT32 i=0; i < _l2_prefetch_lines; i++) {
+            CACHE_TAG l2Tag;
+            UINT32 l2SetIndex;
+            prefetch_addr += L2BlockSize();
+            SplitAddress(prefetch_addr, L2LineShift(), L2SetIndexMask(), l2Tag, l2SetIndex);
+            SET & l2Set = _l2_sets[l2SetIndex];
+            l2Hit = l2Set.Find(l2Tag);
+            if (!l2Hit) {
+                CACHE_TAG l2_replaced = l2Set.Replace(l2Tag);
+                cycles += _latencies[MISS_L2];
+
+                // If L2 is inclusive and a TAG has been replaced we need to remove
+                // all evicted blocks from L1.
+                if ((L2_INCLUSIVE == 1) && !(l2_replaced == INVALID_TAG)) {
+                    ADDRINT replacedAddr = ADDRINT(l2_replaced) << FloorLog2(L2NumSets());
+                    replacedAddr = replacedAddr | l2SetIndex;
+                    replacedAddr = replacedAddr << L2LineShift();
+                    for (UINT32 i=0; i < L2BlockSize(); i+=L1BlockSize()) {
+                        ADDRINT newAddr = replacedAddr | i;
+                        SplitAddress(newAddr, L1LineShift(), L1SetIndexMask(), l1Tag, l1SetIndex);
+                        l1Set = _l1_sets[l1SetIndex];
+                        l1Set.DeleteIfPresent(l1Tag);
+                    }
+                }
+            }
+        }
 
 You then have to remake the simulator tool:
 
