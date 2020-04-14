@@ -41,7 +41,6 @@ You will need to make the following changes in the pintool code, according to th
             l2Hit = l2Set.Find(l2Tag);
             if (!l2Hit) {
                 CACHE_TAG l2_replaced = l2Set.Replace(l2Tag);
-                cycles += _latencies[MISS_L2];
 
                 // If L2 is inclusive and a TAG has been replaced we need to remove
                 // all evicted blocks from L1.
